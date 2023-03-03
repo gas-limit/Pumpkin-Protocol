@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 // import Image from "next/image";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 const Navbar = () => {
+  useEffect(() => {}, []);
   return (
     <header className="header" id="header">
       <nav className="nav container">

@@ -16,7 +16,7 @@
     "@mantine/hooks": "^5.10.5",
     "@mantine/next": "^5.10.5",
     "@openzeppelin/contracts": "^4.3.2",
-    "@rainbow-me/rainbowkit": "^0.10.0",
+    "@rainbow-me/rainbowkit": "^0.7.4",
     "@truffle/hdwallet-provider": "^1.5.1",
     "@walletconnect/web3-provider": "^1.6.6",
     "@web3auth/web3auth": "^2.1.3",
