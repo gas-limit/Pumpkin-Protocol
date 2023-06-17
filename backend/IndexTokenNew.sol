@@ -12,18 +12,21 @@ contract IndexTokenNew is IERC20 {
     mapping(address => mapping(address => uint)) public allowance;
     string public name;
     string public symbol;
-    uint8 public decimals = 18;
+    uint8 constant public decimals = 18;
 
     //Index token constants
     address immutable owner;
-    address[] public holders;
+    mapping(address => uint256) public holderToId;
+    mapping(uint256 => address) public IdToHolder;
+
+    uint256 IdCount;
 
     address[] public tokens;
     uint[] public percentages;
 
-    address spookySwapAddress = 0xF491e7B69E4244ad4002BC14e878a34207E38c29;
-    IUniswapV2Router02 spookySwap = IUniswapV2Router02(spookySwapAddress);
-    address wFTMAddr = 0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83;
+    address constant spookySwapAddress = 0xF491e7B69E4244ad4002BC14e878a34207E38c29;
+    IUniswapV2Router02 constant spookySwap = IUniswapV2Router02(spookySwapAddress);
+    address constant wFTMAddr = 0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83;
 
 
     constructor(address _owner, address[] memory _tokens, uint[] memory  _percentages, string memory _name, string memory _symbol) {
@@ -48,8 +51,6 @@ contract IndexTokenNew is IERC20 {
         name = _name;
         symbol = _symbol;
 
-
-
     }
 
     function getMinToken(uint token,uint amount) public view returns (uint256 result){
@@ -68,20 +69,24 @@ contract IndexTokenNew is IERC20 {
             address _token = tokens[i];
 
             uint transferAmount = getMinToken(i, amount);
-            bool success = IERC20(_token).transferFrom(tx.origin,address(this), transferAmount);
+            bool success = IERC20(_token).transferFrom(msg.sender,address(this), transferAmount);
             require(success, "transfer failed");
         }
-        //add to holders array
-        holders.push(tx.origin);
-
+        //add to holders array if they do not have an id
+        if(holderToId[msg.sender] == 0){
+        IdCount++;
+        holderToId[msg.sender] = IdCount;
+        IdToHolder[IdCount] = msg.sender;
+        }
+        
         _mint(amount);
     }
 
-
+    
 
     function redeem(uint amount) public {
         //get number of tokens using length
-        require(amount <= balanceOf[tx.origin] );
+        require(amount <= balanceOf[msg.sender] );
 
         uint numOfTokens = tokens.length;
         address[] memory _tokens = tokens;
@@ -91,59 +96,30 @@ contract IndexTokenNew is IERC20 {
             address _token = _tokens[i];
 
             uint transferAmount = getMinToken(i, amount);
-            IERC20(_token).approve(tx.origin, transferAmount);
-            bool success = IERC20(_token).transfer(tx.origin, transferAmount);
+            IERC20(_token).approve(msg.sender, transferAmount);
+            bool success = IERC20(_token).transfer(msg.sender, transferAmount);
             require(success, "transfer failed");
         }
 
-        burn(tx.origin,amount); 
+        burn(msg.sender,amount); 
     }
+
+
 
 
     //owner withdraw streaming fee
     function streamingFee() public  {
-        require(tx.origin == owner, "Not owner!");
-
-        address[] memory _holders = holders;
+        require(msg.sender == owner, "Not owner!");
 
         uint feeCounter;
      
-
-
-    // REMOVE DUPLICATE HOLDERS IN ARRAY
-    // use nested for loop to find the duplicate elements in array 
-    uint x;
-    uint y;
-    uint z;
-    uint size = holders.length;
-    for ( x = 0; x < size; x ++)  
-    {  
-        for ( y = x + 1; y < size; y++)  
-        {  
-            // use if statement to check duplicate element  
-            if ( _holders[x] == _holders[y])  
-            {  
-                // delete the current position of the duplicate element  
-                for ( z = y; z < size - 1; z++)  
-                {  
-                    _holders[z] = _holders[z + 1];  
-                }  
-                // decrease the size of array after removing duplicate element  
-                size--;  
-                  
-            // if the position of the elements is changes, don't increase the index j  
-                y--;      
-            }  
-        }  
-    }
-
         //rebase / reduce supply by 1%
-        uint numHolders = _holders.length;
-        for (uint i; i < numHolders; i++){
-            if (balanceOf[_holders[i]] > 0){
-            uint amtToBurn = (balanceOf[_holders[i]]) / 99;
+        for (uint i = 1; i < IdCount; i++){
+            address account = IdToHolder[i];
+            if (balanceOf[account] > 0){
+            uint amtToBurn = (balanceOf[account]) / 99;
             
-            burn(_holders[i], amtToBurn);
+            burn(account, amtToBurn);
             feeCounter += amtToBurn;
             }
         }
@@ -153,8 +129,8 @@ contract IndexTokenNew is IERC20 {
     
     }
 
-    function rebalancePercentages() public {  
-        require(tx.origin == owner); 
+    function rebalancePercentages() internal {  
+
         uint numOfTokens = tokens.length;
 
         uint total;
@@ -212,19 +188,24 @@ contract IndexTokenNew is IERC20 {
 
 
     function transfer(address recipient, uint amount) external returns (bool) {
-        balanceOf[tx.origin] -= amount;
+        balanceOf[msg.sender] -= amount;
         balanceOf[recipient] += amount;
 
-        //add to holders array
-        holders.push(recipient);
+        //add to holders 
+        if(holderToId[recipient] == 0){
+        IdCount++;
+        holderToId[recipient] = IdCount;
+        IdToHolder[IdCount] = recipient;
+        }
+        
 
-        emit Transfer(tx.origin, recipient, amount);
+        emit Transfer(msg.sender, recipient, amount);
         return true;
     }
 
     function approve(address spender, uint amount) external returns (bool) {
-        allowance[tx.origin][spender] = amount;
-        emit Approval(tx.origin, spender, amount);
+        allowance[msg.sender][spender] = amount;
+        emit Approval(msg.sender, spender, amount);
         return true;
     }
 
@@ -233,13 +214,16 @@ contract IndexTokenNew is IERC20 {
         address recipient,
         uint amount
     ) external returns (bool) {
-        allowance[sender][tx.origin] -= amount;
+        allowance[sender][msg.sender] -= amount;
         balanceOf[sender] -= amount;
         balanceOf[recipient] += amount;
 
-
-        //add to holders array
-        holders.push(recipient);
+        //add to holders 
+        if(holderToId[recipient] == 0){
+        IdCount++;
+        holderToId[recipient] = IdCount;
+        IdToHolder[IdCount] = recipient;
+        }
 
 
         emit Transfer(sender, recipient, amount);
@@ -247,16 +231,16 @@ contract IndexTokenNew is IERC20 {
     }
 
     function _mint(uint amount) internal {
-        balanceOf[tx.origin] += amount;
+        balanceOf[msg.sender] += amount;
         totalSupply += amount;
 
-        emit Transfer(address(0), tx.origin, amount);
+        emit Transfer(address(0), msg.sender, amount);
     }
 
     function burn(address burnee, uint amount) internal {
         balanceOf[burnee] -= amount;
         totalSupply -= amount;
-        emit Transfer(tx.origin, address(0), amount);
+        emit Transfer(msg.sender, address(0), amount);
     }
 
 
