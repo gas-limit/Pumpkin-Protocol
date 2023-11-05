@@ -1,0 +1,9 @@
+[
+  {
+    "inputs": [],
+    "name": "mintAllTokens",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

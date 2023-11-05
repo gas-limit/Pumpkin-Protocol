@@ -7,27 +7,38 @@ const Navbar = () => {
   return (
     <header className="header" id="header">
       <nav className="nav container">
-        <a href="#" className="nav__logo">
-          {" "}
-          Project Name{" "}
-        </a>
+        <Link href="/" className="nav__logo">
+          <p>
+            <img
+              src="https://aux2.iconspalace.com/uploads/pumpkin-icon-256-169712166.png"
+              className="pumpkin_icon"
+            />
+            Pumpkin Index
+          </p>
+        </Link>
         <div className="nav__menu" id="nav-menu">
           <ul className="nav__list">
-            <li className="nav__item">
-              <Link href="/" className="nav__link active-link">
-                Home
+            {/* <li className="nav__item">
+              <Link href="/view-tokens" className="nav__link">
+                Explore
               </Link>
-            </li>
+            </li> */}
             <li className="nav__item">
               <Link href="/about" className="nav__link">
                 About
               </Link>
             </li>
             <li className="nav__item">
-              <Link href="/view-tokens" className="nav__link">
-                View Tokens
+              <Link href="/mint-underlying" className="nav__link">
+                Utility Faucet
               </Link>
             </li>
+            <li className="nav__item">
+              <Link href="/view-tokens" className="nav__link">
+                My Tokens
+              </Link>
+            </li>
+
             {/* <a href="#" className="button button--ghost">
               Support
             </a> */}

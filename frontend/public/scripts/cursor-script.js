@@ -10,6 +10,6 @@ document.addEventListener("mousemove", e => {
 document.addEventListener("click", e => {
   cursor?.classList.add("expand");
   setTimeout(() => {
-    cursor.classList.remove("expand");
+    cursor?.classList.remove("expand");
   }, 150);
 });

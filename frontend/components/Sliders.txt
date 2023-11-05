@@ -1,0 +1,209 @@
+{/* DAI */}
+             {/*} <div className="underlying-token">
+                <div className="token-label--container">
+                  <label className="token-label">DAI</label>
+                </div>
+                <div className="token-slider">
+                  <input
+                    required
+                    type="range"
+                    className="depend"
+                    min="0"
+                    max="100"
+                    value={dai}
+                    step="1"
+                    onChange={handleChange}
+                    id="dai"
+                  />
+                  <label id="dai_percentage">{dai}</label>%
+                </div>
+              </div>
+              <br />
+              {/* USDC */}
+              <div className="underlying-token">
+                <div className="token-label--container">
+                  <label className="token-label">USDC</label>
+                </div>
+                <div className="token-slider">
+                  <input
+                    required
+                    type="range"
+                    className="depend"
+                    min="0"
+                    max="100"
+                    value={usdc}
+                    step="1"
+                    onChange={handleChange}
+                    id="usdc"
+                  />
+                  <label id="usdc_percentage">{usdc}</label>%
+                </div>
+              </div>
+              <br />
+              {/* USDT */}
+              <div className="underlying-token">
+                <div className="token-label--container">
+                  <label className="token-label">USDT</label>
+                </div>
+                <div className="token-slider">
+                  <input
+                    required
+                    type="range"
+                    className="depend"
+                    min="0"
+                    max="100"
+                    value={usdt}
+                    step="1"
+                    onChange={handleChange}
+                    id="usdt"
+                  />
+                  <label id="usdt_percentage">{usdt}</label>%
+                </div>
+              </div>
+              <br />
+              {/* BUSD */}
+              <div className="underlying-token">
+                <div className="token-label--container">
+                  <label className="token-label">BUSD</label>
+                </div>
+                <div className="token-slider">
+                  <input
+                    required
+                    type="range"
+                    className="depend"
+                    min="0"
+                    max="100"
+                    value={busd}
+                    step="1"
+                    onChange={handleChange}
+                    id="busd"
+                  />
+                  <label id="busd_percentage">{busd}</label>%
+                </div>
+              </div>
+              <br />
+              {/* WBTC */}
+              <div className="underlying-token">
+                <div className="token-label--container">
+                  <label className="token-label">WBTC</label>
+                </div>
+                <div className="token-slider">
+                  <input
+                    required
+                    type="range"
+                    className="depend"
+                    min="0"
+                    max="100"
+                    value={wbtc}
+                    step="1"
+                    onChange={handleChange}
+                    id="wbtc"
+                  />
+                  <label id="wbtc_percentage">{wbtc}</label>%
+                </div>
+              </div>
+              <br />
+              {/* LINK */}
+              <div className="underlying-token">
+                <div className="token-label--container">
+                  <label className="token-label">LINK</label>
+                </div>
+                <div className="token-slider">
+                  <input
+                    required
+                    type="range"
+                    className="depend"
+                    min="0"
+                    max="100"
+                    value={link}
+                    step="1"
+                    onChange={handleChange}
+                    id="chain-link"
+                  />
+                  <label id="chain-link_percentage">{link}</label>%
+                </div>
+              </div>
+              <br />
+              {/* WFTM */}
+              <div className="underlying-token">
+                <div className="token-label--container">
+                  <label className="token-label">WFTM</label>
+                </div>
+                <div className="token-slider">
+                  <input
+                    required
+                    type="range"
+                    className="depend"
+                    min="0"
+                    max="100"
+                    value={wftm}
+                    step="1"
+                    onChange={handleChange}
+                    id="wftm"
+                  />
+                  <label id="wftm_percentage">{wftm}</label>%
+                </div>
+              </div>
+              <br />
+              {/* AAVE */}
+              <div className="underlying-token">
+                <div className="token-label--container">
+                  <label className="token-label">AAVE</label>
+                </div>
+                <div className="token-slider">
+                  <input
+                    required
+                    type="range"
+                    className="depend"
+                    min="0"
+                    max="100"
+                    value={aave}
+                    step="1"
+                    onChange={handleChange}
+                    id="aave"
+                  />
+                  <label id="aave_percentage">{aave}</label>%
+                </div>
+              </div>
+              <br />
+              {/* TUSD */}
+              <div className="underlying-token">
+                <div className="token-label--container">
+                  <label className="token-label">TUSD</label>
+                </div>
+                <div className="token-slider">
+                  <input
+                    required
+                    type="range"
+                    className="depend"
+                    min="0"
+                    max="100"
+                    value={tusd}
+                    step="1"
+                    onChange={handleChange}
+                    id="tusd"
+                  />
+                  <label id="tusd_percentage">{tusd}</label>%
+                </div>
+              </div>
+              <br />
+              {/* FRAX */}
+              <div className="underlying-token">
+                <div className="token-label--container">
+                  <label className="token-label">FRAX</label>
+                </div>
+                <div className="token-slider">
+                  <input
+                    required
+                    type="range"
+                    className="depend"
+                    min="0"
+                    max="100"
+                    value={frax}
+                    step="1"
+                    onChange={handleChange}
+                    id="frax"
+                  />
+                  <label id="frax_percentage">{frax}</label>%
+                </div>
+              </div>

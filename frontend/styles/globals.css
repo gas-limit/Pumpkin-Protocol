@@ -517,6 +517,26 @@ button {
 .new__icon {
   font-size: 1.25rem;
 }
+
+.pumpkin_icon {
+  vertical-align: middle;
+  max-width: 30px;
+  max-height: 30px;
+}
+
+.crypto_icon {
+  max-width: 25px;
+  max-height: 25px;
+  vertical-align: middle;
+  margin-right: 15px;
+}
+
+.spookyswap_icon {
+  max-width: 30px;
+  max-height: 30px;
+
+  vertical-align: middle;
+}
 .new__content:hover .new__img {
   transform: translateY(-0.5rem);
 }
@@ -1001,13 +1021,21 @@ label {
   text-decoration: underline;
   font-weight: 600;
 }
-.underlying-token {
+.underlying-token,
+.underlying-token--price {
   display: flex;
   width: 50vw;
   justify-content: space-around;
   align-items: center;
   margin: 0 auto;
   flex-wrap: wrap;
+}
+.underlying-token--price {
+  justify-content: center;
+}
+.approx-symbol {
+  margin: 0 10px;
+  text-decoration: none !important;
 }
 .index-token {
   display: flex;
@@ -1032,9 +1060,10 @@ legend {
 .token-slider label {
   font-weight: 600;
 }
-input[type="text"] {
+input[type="text"],
+input[type="number"] {
   background-color: transparent;
-  backdrop-filter: blur(20px) invert(1);
+  backdrop-filter: blur(20px);
   /* background: linear-gradient(to top right, #380b9f 20%, #53a9e7); */
   color: #fff;
   border: 2px solid #fff;
@@ -1047,7 +1076,8 @@ input[type="text"] {
   font-style: italic;
 }
 input[type="range"],
-input[type="text"] {
+input[type="text"],
+input[type="number"] {
   min-width: 0;
   flex-basis: 95%;
 }
@@ -1132,7 +1162,15 @@ fieldset .approx-token-price--container {
   box-shadow: 0 8px 32px 0 rgb(0 0 0 / 48%);
   border-radius: 10px;
 }
-
+.index-token--address {
+  padding: 0 10px;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+.index-token--address:hover {
+  text-decoration: underline;
+}
 hr {
   border: 0.25px solid #fff;
 }
@@ -1141,9 +1179,13 @@ hr {
   justify-content: space-evenly;
   flex-wrap: wrap;
   word-wrap: break-word;
+  max-width: 300px;
+
+  margin: 0 auto;
 }
 
-.view-token--buttons .mantine-wpz84t {
+.view-token--buttons .mantine-wpz84t,
+.view-token--buttons .mantine-1sy6mp7 {
   margin-top: 14px;
 }
 
@@ -1162,6 +1204,9 @@ hr {
   right: 0;
   bottom: 0;
   z-index: 900;
+}
+.token-addresses {
+  font-size: 1rem;
 }
 
 @media screen and (max-width: 768px) {

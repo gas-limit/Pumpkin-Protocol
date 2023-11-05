@@ -1,33 +1,47 @@
 import React from "react";
 import Link from "next/link";
 import { Button } from "@mantine/core";
+import { motion } from "framer-motion";
+import { fadeInUp, routeAnimation, stagger } from "../utils/animations";
+
 const about = () => {
   return (
-    <section className="section about" id="about">
+    <motion.section
+      variants={routeAnimation}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      className="section about"
+      id="about"
+    >
       <div className="about__container container grid">
         <div className="about__data">
           <h2 className="section__title about__title">
-            About Project <br /> Name{" "}
+            About Pumpkin <br /> Index{" "}
           </h2>
           <p className="about__description">
-            Night of all the saints, or all the dead, is celebrated on October
-            31 and it is a very fun international celebration, this celebration
-            comes from ancient origins, and is already celebrated by everyone.{" "}
+            This project was created during the Q1 Hackathon of 2023 hosted by
+            Fantom. Our team identified a gap in the Fantom ecosystem - the
+            absence of index tokens. After conducting thorough research, we
+            developed a solution to address this need.
+            <br />
+            Our innovation provides a valuable contribution to the Fantom
+            community by filling this gap and offering a new option for users.
+            We are excited to share our project with others and look forward to
+            its impact on the ecosystem.{" "}
           </p>
 
-          <Link href="/create-index-token">
-            <Button color="dark" radius="md" size="lg">
-              Create Now
-            </Button>
-          </Link>
+          <Button color="dark" radius="md" size="lg">
+            See Devpost
+          </Button>
         </div>
         <img
-          src="https://assets.codepen.io/7773162/about-img.png"
+          src="https://i.ibb.co/w4b5hZt/pumpkinlogo.png"
           alt=""
           className="about__img"
         />
       </div>
-    </section>
+    </motion.section>
   );
 };
 
